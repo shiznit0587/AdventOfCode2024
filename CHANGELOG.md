@@ -1,3 +1,13 @@
+# Day 4
+
+I've now used `late final`, `typedef`, and learned about `Record` types. All handy, but nothing I haven't seen before in C#.
+
+I tried using a `sync*` method with `yield` statements to produce an `Iterable<(int, int)>`, but I realized this wouldn't allow me to maintain the same direction while searching so I abandoned it.
+
+Happy to see that enums can contain values. I don't think they're GADTs though, closer to Java than haxe/ocaml.
+
+I so want to split up the work in parallel. But I think I need more time to digest dart's `Isolates` system. It's the actor model, with each `Isolate` having its own state, with no access to shared state, even finals. It reminds me of working with `mpi` back in the day. I favor Rust's borrow checker over this, I think.
+
 # Day 3
 
 - I found the `where`, `map`, and `fold` methods, looks like I can do some standard functional data operations, yay!
