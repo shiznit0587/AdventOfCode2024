@@ -1,13 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 
-final keyword = "XMAS";
-
 late final List<String> input;
 late final int rows;
 late final int cols;
 
 typedef Coords = ({int x, int y});
+
+extension on Coords {
+  Coords go(Direction dir) => (x: x + dir.dx, y: y + dir.dy);
+}
+
+extension on List<String> {
+  String at(Coords c) => this[c.x][c.y];
+}
 
 Future<void> run() async {
   input = await utf8.decoder
@@ -34,6 +40,30 @@ Future<void> run() async {
   print('  Found Times: $foundCount');
 
   print('  Day 4 - Part 2');
+
+  foundCount = 0;
+  for (int row = 1; row < rows - 1; ++row) {
+    for (int col = 1; col < cols - 1; ++col) {
+      Coords c = (x: row, y: col);
+
+      // No need for bounds checks, we made sure the loops only cover the inside square.
+      foundCount += switch ((
+        input.at(c),
+        input.at(c.go(Direction.upLeft)),
+        input.at(c.go(Direction.upRight)),
+        input.at(c.go(Direction.downRight)),
+        input.at(c.go(Direction.downLeft))
+      )) {
+        ('A', 'M', 'M', 'S', 'S') => 1,
+        ('A', 'S', 'M', 'M', 'S') => 1,
+        ('A', 'S', 'S', 'M', 'M') => 1,
+        ('A', 'M', 'S', 'S', 'M') => 1,
+        _ => 0
+      };
+    }
+  }
+
+  print('  Found Times: $foundCount');
 }
 
 bool found(Coords c, Direction dir, int idx) {
@@ -48,12 +78,12 @@ bool found(Coords c, Direction dir, int idx) {
   }
 
   // Failure condition
-  if (input[c.x][c.y] != keyword[idx]) {
+  if (input.at(c) != 'XMAS'[idx]) {
     return false;
   }
 
   // Recursive condition (tail)
-  return found((x: c.x + dir.dx, y: c.y + dir.dy), dir, idx + 1);
+  return found(c.go(dir), dir, idx + 1);
 }
 
 // Because it's being used to index into a list of strings, x is row (line) and y is col

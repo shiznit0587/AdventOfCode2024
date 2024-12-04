@@ -1,5 +1,7 @@
 # Day 4
 
+## Part 1
+
 I've now used `late final`, `typedef`, and learned about `Record` types. All handy, but nothing I haven't seen before in C#.
 
 I tried using a `sync*` method with `yield` statements to produce an `Iterable<(int, int)>`, but I realized this wouldn't allow me to maintain the same direction while searching so I abandoned it.
@@ -7,6 +9,14 @@ I tried using a `sync*` method with `yield` statements to produce an `Iterable<(
 Happy to see that enums can contain values. I don't think they're GADTs though, closer to Java than haxe/ocaml.
 
 I so want to split up the work in parallel. But I think I need more time to digest dart's `Isolates` system. It's the actor model, with each `Isolate` having its own state, with no access to shared state, even finals. It reminds me of working with `mpi` back in the day. I favor Rust's borrow checker over this, I think.
+
+## Part 2
+
+I've found `extension` now. An annonymous extension on a typedef of a record seems overkill, but I rather prefer the terseness of the record creation syntax over calling a constructor.
+
+I've found deconstructing expressions in switch statements! One of my favorite language features.
+
+I wanted to add an extension to `List<String>` that would overload the `operator[]` to take a `Coords`, but it doesn't seem that overloading exists in dart (much like haxe).
 
 # Day 3
 
