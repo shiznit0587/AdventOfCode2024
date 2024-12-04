@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:collection/collection.dart';
 
 final eq = ListEquality().equals;
@@ -40,7 +41,6 @@ Future<void> run() async {
 }
 
 bool isReportSafe(List<int> levels) {
-
   final ascending = List<int>.from(levels);
   ascending.sort();
   final descending = ascending.reversed.toList();
@@ -52,7 +52,7 @@ bool isReportSafe(List<int> levels) {
 
   // adjacent levels differ by at least one and at most three
   for (int i = 0; i < levels.length - 1; ++i) {
-    var diff = (levels[i] - levels[i+1]).abs();
+    var diff = (levels[i] - levels[i + 1]).abs();
     if (diff < 1 || 3 < diff) {
       return false;
     }

@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:core';
+import 'dart:io';
 
 Future<void> run() async {
   final lines = utf8.decoder

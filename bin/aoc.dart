@@ -3,7 +3,6 @@ import 'package:aoc/day2/day2.dart' as day2;
 import 'package:aoc/day3/day3.dart' as day3;
 
 void main(List<String> arguments) async {
-
   print("\n🎅🎅🎅🎅🎅 ADVENT OF CODE 2024 🎅🎅🎅🎅🎅\n");
 
   final stopwatch = Stopwatch()..start();
