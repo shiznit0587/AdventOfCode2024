@@ -1,3 +1,8 @@
+# Day 3
+
+- I found the `where`, `map`, and `fold` methods, looks like I can do some standard functional data operations, yay!
+- `SplayTreeMap` was a really fun way to build a lookup for whether each `mul` match should be considered for the final result. Similar to Java's `NavigableMap`.
+
 # Day 2
 
 I found the package manager.
