@@ -1,3 +1,14 @@
+# Day 5
+
+It was really annoying that the post-increment operator doesn't work with a map indexer.
+- `map[i]++` needs to be `map[i] = map[i]! + 1`
+
+With some iterating after having a solution, I found the collection of [`quiver`](https://pub.dev/packages/quiver) libraries from google, stuff that's nice to have when you need it but too niche to be included in the core libraries. I updated to use a `Multimap`.
+
+From the diagnostic [`prefer_for_elements_to_map_fromiterable`](https://dart.dev/tools/diagnostic-messages#prefer_for_elements_to_map_fromiterable), I learned dart has a `for element`, like haxe (and python, iirc).
+
+Named arguments are a neat syntax for extending a method signature cleanly. Reminds me of Objective-C a bit. Also makes sense that they're needed, since dart doesn't have method overloading.
+
 # Day 4
 
 ## Part 1

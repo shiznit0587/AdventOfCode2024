@@ -2,6 +2,8 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:quiver/collection.dart';
+
 typedef Rule = ({int left, int right});
 typedef Update = List<int>;
 
@@ -25,7 +27,6 @@ Future<void> run() async {
     }
   }
 
-  // The way for none of the rules to be broken is for each existing page to not come before any page a rule says it needs to come after.
   var middleSum = 0;
   var wrongUpdates = [];
   for (final update in updates) {
@@ -37,7 +38,7 @@ Future<void> run() async {
     }
   }
 
-  print('Middle Sum = $middleSum');
+  print('  Middle Sum = $middleSum');
 
   print('  Day 5 - Part 2');
 
@@ -47,10 +48,11 @@ Future<void> run() async {
     middleSum += sorted[sorted.length ~/ 2];
   }
 
-  print('Middle Sum = $middleSum');
+  print('  Middle Sum = $middleSum');
 }
 
 bool updatePassesRules(Update update) {
+  // The way for none of the rules to be broken is for each existing page to not come before any page a rule says it needs to come after.
   for (int i = 0; i < update.length; ++i) {
     final page = update[i];
     for (final rule in rules) {
@@ -69,42 +71,22 @@ bool updatePassesRules(Update update) {
 Update sortUpdate(Update update) {
   // This is Kahn's Algorithm, for topological sorting.
 
-  final filteredRules = rules
-      .where((r) => update.contains(r.left) && update.contains(r.right))
-      .toList();
+  final adjacencies = Multimap<int, int>.fromIterable(
+      rules.where((r) => update.contains(r.left) && update.contains(r.right)),
+      key: (r) => r.left,
+      value: (r) => r.right);
 
-  Map<int, List<int>> adjacencies = {};
-  for (final rule in filteredRules) {
-    if (!adjacencies.containsKey(rule.left)) {
-      adjacencies[rule.left] = [];
-    }
-    adjacencies[rule.left]!.add(rule.right);
-  }
+  // Count of times a page is on the RHS of a rule (unsatisfied)
+  final indegree = <int, int>{for (final p in update) p: 0};
+  adjacencies.forEach((l, r) => indegree[r] = indegree[r]! + 1);
 
-  // Count of times a page is on the RHS of a rule.
-  Map<int, int> indegree = {};
-  for (final page in update) {
-    indegree[page] = 0;
-  }
-
-  for (final entry in adjacencies.entries) {
-    for (final adj in entry.value) {
-      indegree[adj] = indegree[adj]! + 1;
-    }
-  }
-
-  Queue<int> queue = Queue();
-  for (final page in update) {
-    if (indegree[page] == 0) {
-      queue.addLast(page);
-    }
-  }
+  final queue = Queue.from(update.where((p) => indegree[p] == 0));
 
   Update sorted = [];
   while (queue.isNotEmpty) {
     int page = queue.removeFirst();
     sorted.add(page);
-    for (final adj in adjacencies[page] ?? []) {
+    for (final adj in adjacencies[page]) {
       indegree[adj] = indegree[adj]! - 1;
       if (indegree[adj] == 0) {
         queue.addLast(adj);
