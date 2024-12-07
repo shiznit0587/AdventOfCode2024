@@ -52,32 +52,28 @@ Future<void> run() async {
   print('  Day 6 - Part 2');
 
   int loopsFound = 0;
-  for (int x = 0; x < map.rows; ++x) {
-    for (int y = 0; y < map.cols; ++y) {
-      if (map[x][y] == '.') {
-        Coords obstruction = (x: x, y: y);
 
-        knight = Knight(pos: start, dir: Direction.up);
-        Set<Knight> visitedB = {};
+  // Only need to check spots that the guard passed through in part 1.
+  for (final obstruction in visited) {
+    knight = Knight(pos: start, dir: Direction.up);
+    Set<Knight> visitedB = {};
 
-        while (true) {
-          visitedB.add(Knight.from(knight));
+    while (true) {
+      visitedB.add(Knight.from(knight));
 
-          var next = knight.pos.go(knight.dir);
-          if (!map.inside(next)) {
-            break;
-          }
-          if (visitedB.contains(Knight(pos: next, dir: knight.dir))) {
-            loopsFound++;
-            break;
-          }
+      var next = knight.pos.go(knight.dir);
+      if (!map.inside(next)) {
+        break;
+      }
+      if (visitedB.contains(Knight(pos: next, dir: knight.dir))) {
+        loopsFound++;
+        break;
+      }
 
-          if (map.at(next) == '#' || next == obstruction) {
-            knight.dir = knight.dir.turnRight();
-          } else {
-            knight.pos = next;
-          }
-        }
+      if (map.at(next) == '#' || next == obstruction) {
+        knight.dir = knight.dir.turnRight();
+      } else {
+        knight.pos = next;
       }
     }
   }
