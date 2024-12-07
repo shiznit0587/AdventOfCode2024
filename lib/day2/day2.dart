@@ -1,19 +1,16 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:collection/collection.dart';
+
+import '../shared.dart';
 
 final eq = ListEquality().equals;
 
 Future<void> run() async {
-  final lines = utf8.decoder
-      .bind(File("lib/day2/input.txt").openRead())
-      .transform(const LineSplitter());
+  final lines = await readDay(2);
 
   var safeReportsA = 0;
   var safeReportsB = 0;
 
-  await for (final line in lines) {
+  for (final line in lines) {
     final report = line.split(" ").map(int.parse).toList();
 
     if (isReportSafe(report)) {

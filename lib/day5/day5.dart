@@ -1,8 +1,8 @@
 import 'dart:collection';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:quiver/collection.dart';
+
+import '../shared.dart';
 
 typedef Rule = ({int left, int right});
 typedef Update = List<int>;
@@ -11,10 +11,7 @@ final List<Rule> rules = [];
 final List<Update> updates = [];
 
 Future<void> run() async {
-  final input = await utf8.decoder
-      .bind(File("lib/day5/input.txt").openRead())
-      .transform(const LineSplitter())
-      .toList();
+  final input = await readDay(5);
 
   print('  Day 5 - Part 1');
 
@@ -52,7 +49,8 @@ Future<void> run() async {
 }
 
 bool updatePassesRules(Update update) {
-  // The way for none of the rules to be broken is for each existing page to not come before any page a rule says it needs to come after.
+  // The way for none of the rules to be broken is for each existing page
+  // to not come before any page a rule says it needs to come after.
   for (int i = 0; i < update.length; ++i) {
     final page = update[i];
     for (final rule in rules) {

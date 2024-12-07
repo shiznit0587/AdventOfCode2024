@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:core';
-import 'dart:io';
+import '../shared.dart';
 
 Future<void> run() async {
-  final lines = utf8.decoder
-      .bind(File("lib/day1/input.txt").openRead())
-      .transform(const LineSplitter());
+  final lines = await readDay(1);
 
   print('  Day 1 - Part 1');
 
@@ -14,7 +10,7 @@ Future<void> run() async {
   List<int> list1 = [];
   List<int> list2 = [];
 
-  await for (final line in lines) {
+  for (final line in lines) {
     final match = numbers.firstMatch(line)!;
     list1.add(int.parse(match.group(1)!));
     list2.add(int.parse(match.group(2)!));

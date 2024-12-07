@@ -1,12 +1,9 @@
 import 'dart:collection';
-import 'dart:convert';
-import 'dart:io';
+
+import '../shared.dart';
 
 Future<void> run() async {
-  final input = await utf8.decoder
-      .bind(File("lib/day3/input.txt").openRead())
-      .transform(const LineSplitter())
-      .fold('', (a, b) => '$a$b');
+  final input = (await readDay(3)).fold('', (a, b) => '$a$b');
 
   print('  Day 3 - Part 1');
 
