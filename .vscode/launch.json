@@ -5,10 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "AdventOfCode2024",
+            "name": "Debug",
             "request": "launch",
             "type": "dart",
             "program": "bin/aoc.dart"
+        },
+        {
+            "name": "Profile",
+            "request": "launch",
+            "type": "dart",
+            "program": "bin/aoc.dart",
+            "toolArgs": [
+                "--pause-isolates-on-start",
+                "--observe"
+            ]
         }
     ]
 }
