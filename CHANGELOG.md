@@ -1,3 +1,26 @@
+# Day 7
+
+At first I tried to use `^` as a power operator, oops.
+
+I finally used an optional positional argument. Syntax for these, and for named optional arguments, is interesting here.
+
+I tried to make the `Operator` enum contain a member for the lambda to apply itself, but the compiler was really unhappy, said the functions weren't compiler constants.
+
+I'm happy with the optimizations on this one.
+- I track the equations that fail part 1 and only evaluate those in part 2.
+- I cache lists of operations based on the count of numbers, to reduce repeated work.
+- For part 2, I also only test lists of operations that contain the new operator.
+
+No matter what I tried, I could not implement `buildOperatorLists` as a `sync*` method. It kept causing a stack overflow, when the same code terminates perfectly fine when written regularly.
+
+# Day 6
+
+I commonized a bunch of code from Day 4 into `shared.dart` for use with Day 6 as well.
+
+Part 2 was originally taking 7s to run. I got CPU profiling working. Then I was clued in on an optimization to only try placing obstructions along the path from Part 1, which brought the runtime down to 1.7s. I'm still not satisfied with it, but it's enough to move on for now.
+
+I tried writing my own hashCode getter for `Knight`, but it actually made things slower.
+
 # Day 5
 
 It was really annoying that the post-increment operator doesn't work with a map indexer.
