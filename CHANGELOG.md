@@ -1,3 +1,7 @@
+# Day 8
+
+I added some operator overrides to the shared `Coords` type.
+
 # Day 7
 
 At first I tried to use `^` as a power operator, oops.

@@ -21,6 +21,10 @@ typedef Coords = ({int x, int y});
 
 extension CoordsExt on Coords {
   Coords go(Direction dir) => (x: x + dir.dx, y: y + dir.dy);
+
+  Coords operator +(Coords rhs) => (x: x + rhs.x, y: y + rhs.y);
+  Coords operator -(Coords rhs) => (x: x - rhs.x, y: y - rhs.y);
+  Coords operator -() => (x: -x, y: -y);
 }
 
 /// Because it's being used to index into a list of strings,

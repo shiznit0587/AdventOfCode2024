@@ -5,6 +5,7 @@ import 'package:aoc/day4/day4.dart' as day4;
 import 'package:aoc/day5/day5.dart' as day5;
 import 'package:aoc/day6/day6.dart' as day6;
 import 'package:aoc/day7/day7.dart' as day7;
+import 'package:aoc/day8/day8.dart' as day8;
 
 void main(List<String> arguments) async {
   print("\n🎅🎅🎅🎅🎅 ADVENT OF CODE 2024 🎅🎅🎅🎅🎅\n");
@@ -18,6 +19,7 @@ void main(List<String> arguments) async {
   await runDay(5, day5.run);
   await runDay(6, day6.run);
   await runDay(7, day7.run);
+  await runDay(8, day8.run);
 
   print('Total Time = ${stopwatch.elapsed}\n');
 }
